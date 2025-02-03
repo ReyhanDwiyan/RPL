@@ -1,131 +1,46 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const locationForm = document.getElementById('locationForm');
-    const scheduleForm = document.getElementById('scheduleForm');
-    const reportForm = document.getElementById('reportForm');
+    const navLinks = document.querySelectorAll('nav ul li a');
 
-    locationForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(locationForm);
-        fetch('actions/location.php', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  location.reload();
-              } else {
-                  alert(data.message);
-              }
-          });
+    // Hover effect for nav links
+    navLinks.forEach(link => {
+        link.addEventListener('mouseover', function() {
+            this.style.color = '#ff7e5f'; // Warna merah muda saat dihover
+        });
+
+        link.addEventListener('mouseout', function() {
+            this.style.color = '#ffffff'; // Warna putih saat tidak dihover
+        });
     });
 
-    scheduleForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(scheduleForm);
-        fetch('actions/schedule.php', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  location.reload();
-              } else {
-                  alert(data.message);
-              }
-          });
+    // Dropdown functionality
+    const profileButton = document.getElementById('profileButton');
+    const dropdown = document.getElementById('dropdown');
+
+    profileButton.addEventListener('click', function() {
+        dropdown.classList.toggle('hidden');
     });
 
-    reportForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(reportForm);
-        fetch('actions/report.php', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  location.reload();
-              } else {
-                  alert(data.message);
-              }
-          });
+    // Close dropdown if clicked outside
+    window.addEventListener('click', function(event) {
+        if (!event.target.matches('#profileButton') && !event.target.closest('#dropdown')) {
+            dropdown.classList.add('hidden');
+        }
     });
+
+    // Initialize FullCalendar
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: [
+            // Contoh event
+            { title: 'Event 1', start: '2025-02-03' },
+            { title: 'Event 2', start: '2025-02-07', end: '2025-02-10' }
+        ]
+    });
+    calendar.render();
 });
-
-function editLocation(id) {
-    fetch(`actions/location.php?id=${id}`)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('locationId').value = data.id;
-            document.getElementById('locationName').value = data.name;
-            document.getElementById('locationAddress').value = data.address;
-        });
-}
-
-function deleteLocation(id) {
-    if (confirm('Apakah Anda yakin ingin menghapus lokasi ini?')) {
-        fetch(`actions/location.php?id=${id}&delete=1`, {
-            method: 'POST'
-        }).then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  location.reload();
-              } else {
-                  alert(data.message);
-              }
-          });
-    }
-}
-
-function editSchedule(id) {
-    fetch(`actions/schedule.php?id=${id}`)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('scheduleId').value = data.id;
-            document.getElementById('scheduleLocation').value = data.location_id;
-            document.getElementById('scheduleDate').value = data.date;
-            document.getElementById('scheduleTime').value = data.time;
-        });
-}
-
-function deleteSchedule(id) {
-    if (confirm('Apakah Anda yakin ingin menghapus jadwal ini?')) {
-        fetch(`actions/schedule.php?id=${id}&delete=1`, {
-            method: 'POST'
-        }).then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  location.reload();
-              } else {
-                  alert(data.message);
-              }
-          });
-    }
-}
-
-function deleteReport(id) {
-    if (confirm('Apakah Anda yakin ingin menghapus laporan ini?')) {
-        fetch(`actions/report.php?id=${id}&delete=1`, {
-            method: 'POST'
-        }).then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  location.reload();
-              } else {
-                  alert(data.message);
-              }
-          });
-    }
-}
-
-function logout() {
-    fetch('actions/logout.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = 'login.php';
-            } else {
-                alert(data.message);
-            }
-        });
-}
