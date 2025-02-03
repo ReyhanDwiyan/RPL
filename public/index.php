@@ -52,8 +52,8 @@
             </div>
             <!-- Card 2 -->
             <div class="bg-white p-4 shadow-lg rounded-lg">
-                <h2 class="text-xl font-bold mb-2">Card 2</h2>
-                <p>Ini adalah konten untuk card 2 di bawah card 1.</p>
+                <h2 class="text-xl font-bold mb-2">Lokasi</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus incidunt quas, repellendus accusantium illum molestiae ex maxime voluptas perferendis ullam eligendi minus doloribus magnam unde quod ipsa deleniti sint provident.</p>
             </div>
         </div>
 
@@ -61,8 +61,8 @@
         <div class="w-2/3 pl-4">
             <!-- Card 3 -->
             <div class="bg-white p-4 shadow-lg rounded-lg">
-                <h2 class="text-xl font-bold mb-2">Card 3</h2>
-                <p>Ini adalah konten untuk card 3 di sebelah kanan.</p>
+                <h2 class="text-xl font-bold mb-2">Laporan</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum expedita necessitatibus alias aperiam, molestias ipsum non, nesciunt aliquid voluptatibus quo numquam cum deserunt, enim nulla eum mollitia! Quia, maiores repellendus.</p>
             </div>
         </div>
     </div>
